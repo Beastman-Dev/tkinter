@@ -1,21 +1,17 @@
 from tkinter import *
 import tkinter as tk
 
-class MyApp:
+class ToDoListApp:
 
     def __init__(self, root):
 
-        # Configuring parameters of the window
-        root.title("My First Tkinter App")
+        root.title("To Do List")
         root.maxsize(800, 600)
         root.geometry("640x480")
 
-        # frame = Frame(root, width=200, height=100)
         frame = Frame(root, width=200, height=100, borderwidth=3, relief="sunken")
         frame.place(x=0, y=0)
 
-        # Creating widgets - in this case text widgets
-        # First we define the widgets
         self.label_text = StringVar()
         label = Label(root, text="Some label text", textvariable=self.label_text)
         # label.grid(column=1, row=1)
@@ -69,6 +65,6 @@ class MyApp:
         print(selected_item)
 
 root = Tk()
-MyApp(root)
+ToDoListApp(root)
 root.mainloop()
 
