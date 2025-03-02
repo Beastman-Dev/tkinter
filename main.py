@@ -6,11 +6,10 @@ class ToDoListApp:
     def __init__(self, root):
 
         root.title("To Do List")
-        root.maxsize(800, 600)
-        root.geometry("640x480")
 
-        frame = Frame(root, width=200, height=100, borderwidth=3, relief="sunken")
-        frame.place(x=0, y=0)
+        frame = Frame(root, borderwidth=3, relief="sunken")
+        frame.grid(column=1, row=1, sticky=(N, E, S, W))
+        root.columnconfigure(1, weight=1)
 
         self.label_text = StringVar()
         label = Label(root, text="Some label text", textvariable=self.label_text)
