@@ -1,6 +1,14 @@
 from tkinter import *
 import tkinter as tk
 
+
+class ToDoItem:
+
+    def __init__(self, name: str, description: str) -> None:
+        self.name = name
+        self.description = description
+
+
 class ToDoListApp:
 
     def __init__(self, root):
@@ -12,6 +20,21 @@ class ToDoListApp:
         root.columnconfigure(1, weight=1)
         root.rowconfigure(1, weight=1)
 
+        list_label = Label(frame, text="To Do Items")
+        list_label.grid(column=1, row=1, sticky=(S, W))
+
+        self.to_do_items = [
+            ToDoItem("Item 1", "Description 1"),
+            ToDoItem("Item 2", "Description 2"),
+            ToDoItem("Item 3", "Description 3"),
+            ToDoItem("Item 4", "Description 4")
+        ]
+        self.to_do_names = StringVar(value=list(map(lambda x: x.name, self.to_do_items)))
+        items_list = Listbox(frame, listvariable=self.to_do_names)
+        items_list.bind("<<ListboxSelect>>", lambda s: self.select_item(items_list.curselection()))
+        items_list.grid(column=1, row=2, sticky=(E, W))
+
+
         self.label_text = StringVar()
         label = Label(frame, text="Some label text", textvariable=self.label_text)
         # label.grid(column=1, row=1)
@@ -21,47 +44,22 @@ class ToDoListApp:
         # label["text"] = "New text"
         label["font"] = ("Arial", 28)
 
-        # Multiple widget attributes may be modified with the configure method
-        #label.configure(text="Yet more text", font=(("Courier", 28)))
-
-        # Creating a text entry field
-        # Binding the entry by type (e.g. StringVar) to a variable (entry_text)
         self.entry_text = StringVar()
-        # Create the widget instance from the "Entry" class, bound to a different variable (entry)
         entry = Entry(frame, textvariable=self.entry_text)
-        # Draw the widget to the window
-        # entry.pack(side=tk.LEFT)
-        # entry.place(x=100, y=50)
-        # entry.grid(column=3, row=1)
-
-        # Use the dictionary method of updating widget properties to bind the entry value to the widget
-        # label["textvariable"] = entry_text
-
-        #entry_text.set("Set text manually")
 
         button = Button(frame, text="Button text", command=self.press_button)
-        # button.pack(side=tk.LEFT)
         # button.grid(column=1, row=2, sticky=(N, S, E, W))
-        # button.place(x=0, y=0)
         # button.configure(width=10, height=2, font=("Arial", 18))
 
-        self.list_item_strings = ["Hey", "Hi", "Hello", "Howdy", "Greetings"]
-        list_items = StringVar(value=self.list_item_strings)
-        listbox = Listbox(frame, listvariable=list_items)
-        # listbox.pack(side=tk.LEFT, padx=40, pady=20)
-        listbox["height"] = 5
-        listbox.bind("<<ListboxSelect>>", lambda s: self.select_item(listbox.curselection()))
-        # This is some arbitrary stuff, so just have to remember or use reference materials
-        # The listbox.bind method binds the item selected in a listbox and allows it to be called - in this case from the 'select_item' function
-        # listbox.grid(column=3, row=2)
 
     def press_button(self):
         text = self.entry_text.get()
         self.label_text.set(text)
 
     def select_item(self, index):
-        selected_item = self.list_item_strings[index[0]]
-        print(selected_item)
+        # selected_item = self.to_do_names[index[0]]
+        # print(selected_item)
+        print("Item selected")
 
 root = Tk()
 ToDoListApp(root)
